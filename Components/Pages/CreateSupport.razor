@@ -1,0 +1,89 @@
+@page "/create-support"
+@rendermode InteractiveServer
+@inject CosmosSupportService Cosmos
+
+<PageTitle>Opret henvendelse</PageTitle>
+
+<h1>Kontakt IBAS Support</h1>
+
+@if (successMessage is not null)
+{
+    <div class="alert alert-success">@successMessage</div>
+}
+@if (errorMessage is not null)
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+
+<EditForm Model="message" OnValidSubmit="SubmitAsync">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label class="form-label">Navn</label>
+        <InputText class="form-control" @bind-Value="message.Name" />
+        <ValidationMessage For="() => message.Name" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <InputText class="form-control" @bind-Value="message.Email" />
+        <ValidationMessage For="() => message.Email" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Telefon (valgfri)</label>
+        <InputText class="form-control" @bind-Value="message.Phone" />
+        <ValidationMessage For="() => message.Phone" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Kategori</label>
+        <InputSelect class="form-select" @bind-Value="message.Category">
+            <option value="">-- Vælg kategori --</option>
+            <option value="salg">Teknisk spørgsmål om køb af ny cykel</option>
+            <option value="reservedele">Køb af reservedele (gør-det-selv)</option>
+            <option value="forslag">Forslag til ændringer / nye features</option>
+            <option value="forhandler">Hvor ligger nærmeste forhandler?</option>
+            <option value="katalog">Send mig det nyeste katalog</option>
+            <option value="andet">Andet</option>
+        </InputSelect>
+        <ValidationMessage For="() => message.Category" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Beskrivelse</label>
+        <InputTextArea class="form-control" rows="5" @bind-Value="message.Description" />
+        <ValidationMessage For="() => message.Description" />
+    </div>
+
+    <button type="submit" class="btn btn-primary" disabled="@isSaving">Opret henvendelse</button>
+</EditForm>
+
+@code {
+    private SupportMessage message = new();
+    private string? successMessage;
+    private string? errorMessage;
+    private bool isSaving;
+
+    private async Task SubmitAsync()
+    {
+        successMessage = errorMessage = null;
+        isSaving = true;
+        try
+        {
+            message.CreatedAt = DateTime.UtcNow;
+            await Cosmos.AddAsync(message);
+            successMessage = "Tak! Din henvendelse er modtaget.";
+            message = new SupportMessage();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Kunne ikke gemme: {ex.Message}";
+        }
+        finally
+        {
+            isSaving = false;
+        }
+    }
+}

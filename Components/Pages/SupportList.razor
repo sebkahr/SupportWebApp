@@ -1,0 +1,57 @@
+@page "/support-list"
+@rendermode InteractiveServer
+@inject CosmosSupportService Cosmos
+
+<PageTitle>Henvendelser</PageTitle>
+
+<h1>Alle henvendelser</h1>
+
+@if (errorMessage is not null)
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+else if (messages is null)
+{
+    <p><em>Henter data...</em></p>
+}
+else if (messages.Count == 0)
+{
+    <p>Ingen henvendelser endnu. <a href="create-support">Opret den første</a>.</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Oprettet</th><th>Navn</th><th>Email</th>
+                <th>Telefon</th><th>Kategori</th><th>Beskrivelse</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var m in messages)
+            {
+                <tr>
+                    <td>@m.CreatedAt.ToLocalTime().ToString("dd-MM-yyyy HH:mm")</td>
+                    <td>@m.Name</td>
+                    <td>@m.Email</td>
+                    <td>@m.Phone</td>
+                    <td>@m.Category</td>
+                    <td>@(m.Description.Length > 80 ? m.Description[..80] + "…" : m.Description)</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private List<SupportMessage>? messages;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try { messages = await Cosmos.GetAllAsync(); }
+        catch (Exception ex) { errorMessage = $"Kunne ikke hente data: {ex.Message}"; }
+    }
+}
