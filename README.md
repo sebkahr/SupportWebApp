@@ -56,7 +56,7 @@ Kun ét free-tier-abonnement er tilladt pr. Azure-abonnement. Fjern
 
 ## Kør projektet lokalt
 ```bash
-git clone https://github.com/DITBRUGERNAVN/SupportWebApp.git
+git clone https://github.com/sebkahr/SupportWebApp.git
 cd SupportWebApp
 dotnet user-secrets init
 dotnet user-secrets set "CosmosDb:ConnectionString" "<connection string>"
