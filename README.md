@@ -2,7 +2,6 @@
 
 ## Gruppe
 - Sebastian Hansen
-- (tilføj evt. flere navne her)
 
 ## Formål
 En .NET Blazor Web App hvor IBAS' kunder kan oprette supporthenvendelser,
