@@ -36,7 +36,7 @@ Kør alle kommandoer i samme bash-terminal (fx Azure Cloud Shell), da variablern
 ```bash
 az login
 export RESGRP="IBasSupportRG"
-export DBACCOUNT="ibas-db-account-$RANDOM"
+export DBACCOUNT="ibas-db-account-14555"
 export DATABASE="IBasSupportDB"
 export CONTAINER="ibassupport"
 
