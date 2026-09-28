@@ -11,7 +11,7 @@ Lavet i faget Cloud Computing (opgave M4.04).
 ## Arkitektur
 Browser → Blazor Server-app → `CosmosSupportService` → Azure Cosmos DB
 
-- `Models/SupportMessage.cs` – datamodel med validering (DataAnnotations)
+- `Models/SupportMessage.cs` – datamodel med validering (dataannotations)
 - `Services/CosmosSupportService.cs` – al kommunikation med Cosmos DB
 - `Components/Pages/CreateSupport.razor` – formular til oprettelse
 - `Components/Pages/SupportList.razor` – tabel med alle henvendelser
