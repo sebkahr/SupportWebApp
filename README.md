@@ -76,7 +76,7 @@ Kræver .NET SDK 10 og adgang til en Cosmos DB oprettet som ovenfor.
 git clone https://github.com/sebkahr/SupportWebApp.git
 cd SupportWebApp
 dotnet user-secrets init
-dotnet user-secrets set "CosmosDb:ConnectionString" "<din connection string>"
+dotnet user-secrets set "CosmosDb:ConnectionString" "<din connection string, findes i Portal → Keys>"
 dotnet user-secrets set "CosmosDb:DatabaseName" "IBasSupportDB"
 dotnet user-secrets set "CosmosDb:ContainerName" "ibassupport"
 dotnet run
@@ -88,7 +88,7 @@ Connection strings ligger bevidst ikke i repoet.
 **Nået (alle krav i M4.04):**
 - Blazor Web App oprettet med `dotnet new blazor` og lagt på GitHub
 - Modelklasse med validering
-- Service der opretter og henter henvendelser i Azure Cosmos DB 
+- Service der opretter og henter henvendelser i Azure Cosmos DB
 - Side til oprettelse af henvendelser med fejlbeskeder i UI'et
 - Side der viser alle henvendelser i en tabel
 - Navigation mellem siderne, og Counter/Weather er fjernet
