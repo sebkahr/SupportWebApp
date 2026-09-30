@@ -31,7 +31,7 @@ i stedet for `Pages` og `Shared`, og har ingen `Controllers`.
 - **Sikkerhed:** Connection string ligger i *user secrets*, ikke i repoet.
 
 ## Opret Cosmos DB med Azure CLI
-Kør alle kommandoer i samme bash-terminal (fx Azure Cloud Shell), da variablerne genbruges.
+Alle kommandoer brugt i bash-terminal
 
 ```bash
 az login
@@ -62,12 +62,6 @@ az cosmosdb sql container create --account-name $DBACCOUNT \
 az cosmosdb keys list --name $DBACCOUNT --resource-group $RESGRP \
   --type connection-strings --query "connectionStrings[0].connectionString" -o tsv
 ```
-
-Bemærkninger:
-- Regionen `swedencentral` er valgt, fordi abonnementet kun tillader bestemte regioner
-  (Polen, Østrig, UAE, Tyskland og Sverige). Skift til en tilladt region, hvis din politik er anderledes.
-- Kun én konto pr. abonnement kan bruge free tier. Fjern `--enable-free-tier true`, hvis
-  kommandoen fejler pga. dette.
 
 ## Kør projektet lokalt
 Kræver .NET SDK 10 og adgang til en Cosmos DB oprettet som ovenfor.
